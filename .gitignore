@@ -1,3 +1,6 @@
 .idea/
 *.pyc
 data/
+.python_packages
+__pycache__
+.venv

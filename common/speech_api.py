@@ -1,5 +1,6 @@
 import base64
 import os
+import webbrowser
 
 import requests
 import json
@@ -15,7 +16,7 @@ class SpeechAPI:
             "audioConfig": {
                 "audioEncoding": "LINEAR16",
                 "pitch": 0,
-                "speakingRate": 1
+                "speakingRate": 0.9
             },
             "input": {
                 "text": "CONTENT"
@@ -44,6 +45,7 @@ class SpeechAPI:
                 content = base64.b64decode(res)
                 filename = f'data/book-1/{img_name}/{str(number).zfill(2)}.wav'
                 os.makedirs(os.path.dirname(filename), exist_ok=True)
+                webbrowser.open(filename)
                 with open(filename, 'wb') as fp:
                     fp.write(content)
             else:

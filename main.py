@@ -18,7 +18,6 @@ if __name__ == "__main__":
 
         res = speech_api.synthesize(img_name, res)
         response_dict[img_name]['audio'] = res
-    response_dict
 
     with open(image_reader_client.content_file, 'w') as fp:
         json.dump(response_dict, fp, indent=2)
