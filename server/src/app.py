@@ -11,7 +11,17 @@ def format_server_time():
 @app.route('/')
 def index():
     context = { 'server_time': format_server_time() }
-    return render_template('index.html', context=context)
+    return context#render_template('index.html', context=context)
+
+# @app.route('/')
+# def health_check():
+#     context = { 'server_time': format_server_time() }
+#     return render_template('index.html', context=context)
+
 
 if __name__ == '__main__':
-    app.run(debug=True,host='0.0.0.0',port=int(os.environ.get('PORT', 8080)))
+    app.run(
+      debug=True,
+      host='0.0.0.0',
+      port=int(os.environ.get('PORT', 8080))
+    )
