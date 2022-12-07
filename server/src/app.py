@@ -10,8 +10,8 @@ def format_server_time():
 
 @app.route('/')
 def index():
-    context = { 'server_time': format_server_time() }
-    return context#render_template('index.html', context=context)
+    context = {'server_time': format_server_time() }
+    return render_template('index.html', context=context)
 
 # @app.route('/')
 # def health_check():
