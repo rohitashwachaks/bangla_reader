@@ -1,12 +1,11 @@
 import base64
-import io
 import json
 import os
 from typing import Union
 
 from tqdm import tqdm
 
-from common.config import LOCAL_PATH, LOCAL_CONTENT_FILENAME, CONTAINER_NAME, STORAGE_ACCOUNT_NAME, STORAGE_ACCOUNT_KEY,\
+from common.config import LOCAL_PATH, CONTAINER_NAME, STORAGE_ACCOUNT_NAME, STORAGE_ACCOUNT_KEY,\
     LOCAL_CONTENT_FILENAME
 from azure.storage.blob import BlobServiceClient, BlobClient
 
