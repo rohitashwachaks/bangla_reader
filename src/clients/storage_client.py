@@ -21,3 +21,8 @@ class StorageClient:
             fp.seek(0)
             blob.upload_from_file(fp)
         return
+
+    @staticmethod
+    def fetch_blob(blob_id: str):
+        blob: Blob = StorageClient.__bucket.get_blob(blob_name=blob_id)
+        pass
