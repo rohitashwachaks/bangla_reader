@@ -15,18 +15,25 @@ def upload_image():
     StorageClient.upload_blob(data=request.data, filename=filename + '/img.jpeg')
     data = base64.b64encode(request.data).decode()
 
-    decoded_text = VisionAPI.ocr_request(data)
-    decoded_text = decoded_text['responses'][0]['fullTextAnnotation']['text']
+    ocr_response = VisionAPI.ocr_request(data)
+    decoded_text = ocr_response['responses'][0]['fullTextAnnotation']['text']
 
     decoded_text = repr(decoded_text)[1:-1].replace('"', "'")
     StorageClient.upload_blob(data=decoded_text.encode(), filename=filename + '/OCR.txt')
+
+    text = {}
+    for index, sentence in enumerate(decoded_text.split(sep='।')):
+        text[index] = {'text': sentence}
+
     return {
         'id': filename,
-        'text': decoded_text
+        'text': text
     }
 
+# @requests.route('/synthesise/', methods=['POST'])
+# def
 
-@requests.route('/read/', methods=['GET'])
-def read_image(recording_id: str):
-    print(recording_id)
-    StorageClient.fetch_blob(recording_id)
+# @requests.route('/read/', methods=['GET'])
+# def read_image(recording_id: str):
+#     print(recording_id)
+#     StorageClient.fetch_blob(recording_id)

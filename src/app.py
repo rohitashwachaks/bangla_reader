@@ -2,7 +2,7 @@ import os
 
 from flask import Flask, render_template  # Remove: import Flask
 
-from src.requests import requests
+from src.api_requests import requests
 from src.server_status import server_status
 
 app = Flask(__name__)
