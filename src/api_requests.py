@@ -24,6 +24,11 @@ def upload_image():
     text = {}
     for index, sentence in enumerate(decoded_text.split(sep='।')):
         text[index] = {'text': sentence}
+        # Asynchronus / Queue mechanism to synthesize voice
+        try:
+            requests.post(url=url, data=data, timeout=1)  # 1sec timeout
+        except:
+            pass
 
     return {
         'id': filename,
