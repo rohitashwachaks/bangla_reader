@@ -26,7 +26,7 @@ def upload_image():
         text[index] = {'text': sentence}
         # Asynchronus / Queue mechanism to synthesize voice
         try:
-            requests.post(url=url, data=data, timeout=1)  # 1sec timeout
+            requests.post(url=url, data=data, timeout=0.1)  # 1sec timeout
         except:
             pass
 
