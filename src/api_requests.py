@@ -1,10 +1,12 @@
 import base64
 import uuid
+from threading import Thread
 
 from flask import Blueprint, request, render_template
 
 from src.clients.storage_client import StorageClient
 from src.clients.vision_client import VisionAPI
+from src.clients.speech_client import SpeechAPI
 
 requests = Blueprint('requests', __name__)
 
@@ -22,21 +24,20 @@ def upload_image():
     StorageClient.upload_blob(data=decoded_text.encode(), filename=filename + '/OCR.txt')
 
     text = {}
-    for index, sentence in enumerate(decoded_text.split(sep='।')):
+    for index, sentence in enumerate(decoded_text.split(sep='।'), 1):
         text[index] = {'text': sentence}
-        # Asynchronus / Queue mechanism to synthesize voice
-        try:
-            requests.post(url=url, data=data, timeout=0.1)  # 1sec timeout
-        except:
-            pass
+
+    background_thread = Thread(target=SpeechAPI.synthesize, args=(filename, text, True))
+    background_thread.start()
 
     return {
         'id': filename,
         'text': text
     }
-
+#
 # @requests.route('/synthesise/', methods=['POST'])
-# def
+# def synthesize_voice():
+#     speech_api.synthesize(img_name, res)
 
 # @requests.route('/read/', methods=['GET'])
 # def read_image(recording_id: str):

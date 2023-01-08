@@ -5,6 +5,8 @@ import webbrowser
 import requests
 import json
 from tqdm import tqdm
+
+from src.clients.storage_client import StorageClient
 from src.common.config import GCP_VISION_KEY
 
 
@@ -34,11 +36,12 @@ class SpeechAPI:
         return SpeechAPI.__payload.replace('CONTENT', text)
 
     @staticmethod
-    def synthesize(img_name: str, text: str):
+    def synthesize(img_name: str, text: dict, local=False):
         res = None
-        text = repr(text)[1:-1].replace('"', "'").split('।')
-        for number, sentence in (pbar := tqdm(enumerate(text, 1))):
+        pbar = tqdm(text.items())
+        for number, sentence in pbar:
             pbar.set_description(f'{img_name}/{str(number).zfill(2)}.wav')
+            text = sentence.get('text', '')
             data = SpeechAPI.__payload__(sentence)
             response = requests.request("POST",
                                         url=SpeechAPI.__url,
@@ -50,10 +53,12 @@ class SpeechAPI:
                 res = json.loads(response.content.decode())['audioContent']
                 content = base64.b64decode(res)
                 filename = f'data/book-1/{img_name}/{str(number).zfill(2)}.wav'
-                os.makedirs(os.path.dirname(filename), exist_ok=True)
-                webbrowser.open(filename)
-                with open(filename, 'wb') as fp:
-                    fp.write(content)
+                StorageClient.upload_blob(data=content, filename=f'{img_name}/{str(number).zfill(2)}.wav')
+                if local:
+                    os.makedirs(os.path.dirname(filename), exist_ok=True)
+                    with open(filename, 'wb') as fp:
+                        fp.write(content)
+                    webbrowser.open(filename)
             else:
                 error_msg = json.loads(response.content.decode())['message']
                 SpeechAPI.__failed[img_name] = {
