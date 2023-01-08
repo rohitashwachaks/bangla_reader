@@ -5,7 +5,7 @@ from common.speech_api import SpeechAPI
 from common.vision_api import VisionAPI
 
 if __name__ == "__main__":
-    image_reader_client = ImageReaderClient(local=True, container_name='book-1')
+    image_reader_client = ImageReaderClient( container_name='book-1')
     vision_api = VisionAPI()
     speech_api = SpeechAPI()
 
@@ -18,6 +18,7 @@ if __name__ == "__main__":
 
         res = speech_api.synthesize(img_name, res)
         response_dict[img_name]['audio'] = res
+        break
 
     with open(image_reader_client.content_file, 'w') as fp:
         json.dump(response_dict, fp, indent=2)
