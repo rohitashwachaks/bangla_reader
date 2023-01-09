@@ -1,2 +1,0 @@
-# Azure Cognitive Service Client
-
