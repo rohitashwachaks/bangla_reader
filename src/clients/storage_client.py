@@ -3,12 +3,11 @@ import json
 
 from google.cloud import storage
 from google.cloud.storage import Blob
+from src.common.config import GCP_STORAGE_CREDENTIALS
 
 
 class StorageClient:
-    with open('/Users/rchaks/Code/GitHub/bangla_reader/src/common/augmented-tract-370404-bf2bc13a4ccf.json',
-              'r') as fp:
-        credentials_dict = json.load(fp)
+    credentials_dict = json.loads(GCP_STORAGE_CREDENTIALS)
 
     __client = storage.Client.from_service_account_info(credentials_dict)
     __bucket = __client.get_bucket('bangla-reader')

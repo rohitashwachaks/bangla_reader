@@ -2,7 +2,7 @@ import base64
 import uuid
 from threading import Thread
 
-from flask import Blueprint, request, render_template
+from flask import Blueprint, request
 
 # from src.clients.audio_player import WavReader
 from src.clients.storage_client import StorageClient
@@ -32,7 +32,7 @@ def upload_image():
     for index, sentence in enumerate(decoded_text.split(sep='।'), 1):
         text[index] = {'text': sentence}
 
-    background_thread = Thread(target=SpeechAPI.synthesize, args=(filename, text, True))
+    background_thread = Thread(target=SpeechAPI.synthesize, args=(filename, text))
     background_thread.start()
     print(f'Background Thread started: {filename}')
 
