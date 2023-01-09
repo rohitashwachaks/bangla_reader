@@ -4,7 +4,7 @@ from threading import Thread
 
 from flask import Blueprint, request, render_template
 
-from src.clients.audio_player import WavReader
+# from src.clients.audio_player import WavReader
 from src.clients.storage_client import StorageClient
 from src.clients.vision_client import VisionAPI
 from src.clients.speech_client import SpeechAPI
@@ -46,12 +46,12 @@ def upload_image():
 def get_voice():
     filename = request.args.get('filename')
     data = StorageClient.fetch_blob(filename)
-    background_thread = Thread(target=WavReader.play_audio, args=[data])
-    background_thread.start()
+    # background_thread = Thread(target=WavReader.play_audio, args=[data])
+    # background_thread.start()
     return data
 
 
-@requests.route('/read/', methods=['POST'])
-def read_speech():
-    WavReader.play_audio(request.data)
-    return 'Success'
+# @requests.route('/read/', methods=['POST'])
+# def read_speech():
+#     # WavReader.play_audio(request.data)
+#     return 'Success'
