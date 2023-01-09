@@ -69,3 +69,7 @@ node_modules/
 *.pyc
 src/common/augmented-tract-370404-bf2bc13a4ccf.json
 data/
+.python_packages
+__pycache__
+.venv
+src/common/augmented-tract-370404-bf2bc13a4ccf.json
