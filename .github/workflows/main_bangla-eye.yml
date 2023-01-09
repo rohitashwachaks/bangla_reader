@@ -60,4 +60,4 @@ jobs:
         with:
           app-name: 'bangla-eye'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_22EC46E054814DFF8EBBD233E6275373 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_BAE892FEE052471BB210AC767D090FC7 }}
