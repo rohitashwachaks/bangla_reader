@@ -38,11 +38,12 @@ class SpeechAPI:
     @staticmethod
     def synthesize(img_name: str, text: dict, local=False):
         res = None
+
         pbar = tqdm(text.items())
         for number, sentence in pbar:
             pbar.set_description(f'{img_name}/{str(number).zfill(2)}.wav')
             text = sentence.get('text', '')
-            data = SpeechAPI.__payload__(sentence)
+            data = SpeechAPI.__payload__(text)
             response = requests.request("POST",
                                         url=SpeechAPI.__url,
                                         headers=SpeechAPI.__headers,

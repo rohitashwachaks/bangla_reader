@@ -25,4 +25,5 @@ class StorageClient:
     @staticmethod
     def fetch_blob(blob_id: str):
         blob: Blob = StorageClient.__bucket.get_blob(blob_name=blob_id)
-        pass
+        data = blob.download_as_bytes()
+        return data
